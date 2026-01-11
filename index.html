@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="mobile-web-app-capable" content="yes">
     <title>NJT Ticket</title>
     <style>
@@ -18,11 +18,10 @@
             font-family: Arial, sans-serif;
             background-color: white;
             color: black;
-            overflow-x: hidden;
-            /* Prevents the whole page from bouncing/scrolling */
             height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .top-nav {
@@ -36,7 +35,7 @@
             flex: 1;
             padding: 15px;
             text-align: center;
-            overflow-y: auto; /* Allows only the middle to scroll if needed */
+            overflow-y: auto;
         }
 
         .header-section {
@@ -67,14 +66,14 @@
             border: 1px solid #7a7a7a;
             border-radius: 10px;
             padding: 12px;
-            width: 95%;
+            width: 92%;
             margin: 0 auto;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
         }
 
         .zone-num { font-size: 48px; font-weight: bold; line-height: 1; }
         .zone-label { font-size: 22px; font-weight: bold; }
-        .hblr-note { font-size: 13px; font-weight: bold; margin-top: 4px; }
+        .hblr-note { font-size: 13px; font-weight: bold; }
 
         .validator-text {
             font-size: 14px;
@@ -96,16 +95,22 @@
             z-index: 100;
         }
 
+        /* Narrower Blinking Bar */
+        .blinking-bar-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 5px;
+        }
+
         .blinking-bar {
             display: flex;
-            height: 40px;
-            width: 100%;
+            height: 30px;
+            width: 85%; /* Reduced width to match SS */
             animation: blinker 1s step-start infinite;
         }
 
-        @keyframes blinker {
-            50% { opacity: 0; }
-        }
+        @keyframes blinker { 50% { opacity: 0; } }
 
         .seg { flex: 1; }
         .s1 { background-color: var(--color-1); }
@@ -120,15 +125,28 @@
             border-top: 1px solid #eee;
         }
 
+        /* Bottom Menu with Icons */
         .bottom-menu {
             background-color: #1c1c1c;
             display: flex;
             justify-content: space-around;
-            padding: 12px 0 25px 0; /* Extra bottom padding for Pixel gesture bar */
+            padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
         }
 
-        .menu-item { color: #888; font-size: 10px; text-align: center; }
+        .menu-item { 
+            color: #888; 
+            font-size: 10px; 
+            text-align: center; 
+            flex: 1;
+        }
+
         .menu-item.active { color: white; }
+
+        .menu-icon {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 4px;
+        }
     </style>
 </head>
 <body>
@@ -164,18 +182,37 @@
     </div>
 
     <div class="bottom-sticky-container">
-        <div class="blinking-bar">
-            <div class="seg s1"></div>
-            <div class="seg s2"></div>
-            <div class="seg s3"></div>
+        <div class="blinking-bar-wrapper">
+            <div class="blinking-bar">
+                <div class="seg s1"></div>
+                <div class="seg s2"></div>
+                <div class="seg s3"></div>
+            </div>
         </div>
+        
         <div class="expiry-text">Expires in 00:02:29:24</div>
+
         <div class="bottom-menu">
-            <div class="menu-item">Favorites</div>
-            <div class="menu-item active">My Tickets</div>
-            <div class="menu-item">Home</div>
-            <div class="menu-item">Rider Tools</div>
-            <div class="menu-item">More</div>
+            <div class="menu-item">
+                <span class="menu-icon">⭐</span>
+                Favorites
+            </div>
+            <div class="menu-item active">
+                <span class="menu-icon">🎫</span>
+                My Tickets
+            </div>
+            <div class="menu-item">
+                <span class="menu-icon">🏠</span>
+                Home
+            </div>
+            <div class="menu-item">
+                <span class="menu-icon">🔧</span>
+                Rider Tools
+            </div>
+            <div class="menu-item">
+                <span class="menu-icon">⠿</span>
+                More
+            </div>
         </div>
     </div>
 
@@ -189,7 +226,7 @@
         updateClock();
 
         function changeColors() {
-            const hex = prompt("Enter 3 Hex codes separated by commas (e.g. #ff0000,#00ff00,#0000ff):");
+            const hex = prompt("Enter 3 Hex codes (comma separated):", "#e91e3e,#19b023,#b4dfb6");
             if (hex) {
                 const colors = hex.split(',');
                 if(colors[0]) document.documentElement.style.setProperty('--color-1', colors[0].trim());
