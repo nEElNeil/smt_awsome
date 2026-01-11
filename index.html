@@ -86,7 +86,6 @@
         .clock-text { font-size: 28px; font-weight: bold; }
         .date-text { font-size: 22px; font-weight: bold; color: #333; }
 
-        /* FIXED BOTTOM AREA */
         .bottom-sticky-container {
             position: fixed;
             bottom: 0;
@@ -95,14 +94,11 @@
             z-index: 100;
         }
 
-        /* UPDATED BLINKER STYLE */
+        /* Fixed: 100% width and small height */
         .blinking-bar {
             display: flex;
-            height: 20px; /* Reduced height significantly */
-            width: 80%;  /* Narrower width */
-            margin: 10px auto; /* Centered with small vertical spacing */
-            border-radius: 4px; /* Slightly rounded corners */
-            overflow: hidden;
+            height: 20px;
+            width: 100%;
             animation: blinker 1s step-start infinite;
         }
 
