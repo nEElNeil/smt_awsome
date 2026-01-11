@@ -19,7 +19,6 @@
             background-color: white;
             color: black;
             overflow-x: hidden;
-            /* Prevents the whole page from bouncing/scrolling */
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -36,7 +35,7 @@
             flex: 1;
             padding: 15px;
             text-align: center;
-            overflow-y: auto; /* Allows only the middle to scroll if needed */
+            overflow-y: auto;
         }
 
         .header-section {
@@ -96,10 +95,14 @@
             z-index: 100;
         }
 
+        /* UPDATED BLINKER STYLE */
         .blinking-bar {
             display: flex;
-            height: 40px;
-            width: 100%;
+            height: 20px; /* Reduced height significantly */
+            width: 80%;  /* Narrower width */
+            margin: 10px auto; /* Centered with small vertical spacing */
+            border-radius: 4px; /* Slightly rounded corners */
+            overflow: hidden;
             animation: blinker 1s step-start infinite;
         }
 
@@ -124,7 +127,7 @@
             background-color: #1c1c1c;
             display: flex;
             justify-content: space-around;
-            padding: 12px 0 25px 0; /* Extra bottom padding for Pixel gesture bar */
+            padding: 12px 0 25px 0;
         }
 
         .menu-item { color: #888; font-size: 10px; text-align: center; }
